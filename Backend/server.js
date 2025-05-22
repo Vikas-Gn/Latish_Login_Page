@@ -8,7 +8,7 @@ const path = require('path');
 const fs = require('fs');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3017;
 const JWT_SECRET = 'your_jwt_secret_key'; // Replace with a secure key
 
 // Middleware
@@ -19,9 +19,9 @@ app.use('/uploads', express.static('uploads'));
 // PostgreSQL connection
 const pool = new Pool({
     user: 'postgres',
-    host: 'localhost',
+    host: 'postgres',
     database: 'hrms_db',
-    password: 'root',
+    password: 'admin123',
     port: 5432,
 });
 

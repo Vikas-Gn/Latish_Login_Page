@@ -988,7 +988,7 @@
 
             try {
                 // Fetch user data from backend
-                const response = await fetch('http://localhost:3000/api/user', {
+                const response = await fetch('http://98.80.67.100:3017/api/user', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -1014,7 +1014,7 @@
                 const profileImages = document.querySelectorAll('.profile-img');
                 profileImages.forEach(img => {
                     if (img && userData.profileImage) {
-                        img.src = `http://localhost:3000${userData.profileImage}`;
+                        img.src = `http://98.80.67.100:3017${userData.profileImage}`;
                         img.style.width = '70px';
                         img.style.height = '70px';
                         img.style.borderRadius = '50%';
@@ -1065,7 +1065,7 @@
             // Notify backend to invalidate token (optional, if using token blacklist)
             try {
                 const token = localStorage.getItem('token');
-                await fetch('http://localhost:3000/api/logout', {
+                await fetch('http://98.80.67.100:3017/api/logout', {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`,
