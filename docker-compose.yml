@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14
+    container_name: pg_login2
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: hrms_db
+    ports:
+      - "5445:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./Backend
+    container_name: backend_service2
+    ports:
+      - "3017:3017"
+    depends_on:
+      - postgres
+    environment:
+      - NODE_ENV=production
+    networks:
+      - app-network
+
+  login:
+    build:
+      context: ./Login
+    container_name: login_service4
+    ports:
+      - "9025:80"
+    networks:
+      - app-network
+
+  dashboard:
+    build:
+      context: ./Login/dashboard
+    container_name: dashboard_service3
+    ports:
+      - "9026:80"
+    networks:
+      - app-network
+
+volumes:
+  pgdata:
+
+networks:
+  app-network:
+    driver: bridge
+
