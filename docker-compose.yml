@@ -34,7 +34,7 @@ services:
       context: ./Login
     container_name: login_service4
     ports:
-      - "9025:80"
+      - "9026:80"
     networks:
       - app-network
 
@@ -43,7 +43,7 @@ services:
       context: ./Login/dashboard
     container_name: dashboard_service3
     ports:
-      - "9026:80"
+      - "9025:80"
     networks:
       - app-network
 

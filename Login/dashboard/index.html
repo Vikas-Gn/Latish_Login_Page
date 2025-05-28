@@ -700,7 +700,7 @@
 <body>
     <section class="animated-header">
         <nav style="display: flex;">
-            <img src="../Assests/ATS Wallpaper.jpg" style="height: 100px; margin-left: 0px;border-radius: 20%; margin-top: 10px;" alt="">
+            <img src="ATS Wallpaper.jpg" style="height: 100px; margin-left: 0px;border-radius: 20%; margin-top: 10px;" alt="">
             <section id="content">
                 <nav>
                     <i class="bi bi-list fs-1 bi bi-chevron-compact-right" style="font-size: 28px;"></i>
@@ -982,7 +982,7 @@
         document.addEventListener('DOMContentLoaded', async function() {
             const token = localStorage.getItem('token'); // Check for token
             if (!token) {
-                window.location.href = 'Login.html'; // Redirect if no token
+                window.location.href = 'index.html'; // Redirect if no token
                 return;
             }
 
@@ -1027,7 +1027,7 @@
             } catch (error) {
                 console.error('Error fetching user data:', error);
                 localStorage.clear(); // Clear localStorage on error
-                window.location.href = 'Login.html'; // Redirect to login
+                window.location.href = 'index.html'; // Redirect to index
             }
 
             // Dynamically add fadeOut keyframes
@@ -1079,7 +1079,7 @@
             setTimeout(() => {
                 // Clear all localStorage to ensure complete logout
                 localStorage.clear();
-                // Force navigation to Login.html
+                // Force navigation to index.html
                 window.location.replace('http://98.80.67.100:9026/index.html'); 
             }, 300);
         }
