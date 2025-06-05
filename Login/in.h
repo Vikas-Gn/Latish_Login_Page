@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HCG - Human Resource Management System</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-      <style>
+    <!-- <link rel="stylesheet" href="./Login.css"> -->
+     <style>
         Reset default styles
 * {
   margin: 0;
@@ -353,15 +354,8 @@ footer a:hover {
     color: #007bff;
 }
 
-
-        .error-message {
-            margin-top: 5px;
-            font-size: 0.9rem;
-            color: #dc3545;
-        }
-
-        /* Mobile and Tablet responsiveness */
-        @media (max-width: 768px) {
+/* Mobile and Tablet responsiveness */
+@media (max-width: 768px) {
             .container {
                 flex-direction: column;
                 padding: 0.5rem;
@@ -377,36 +371,35 @@ footer a:hover {
                 margin: 1rem auto;
             }
         }
+/* Smaller screen responsiveness */
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.2rem;
+  }
 
-        /* Smaller screen responsiveness */
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 1.2rem;
-            }
+  .login-section {
+    width: 90%;
+    max-width: 300px;
+  }
 
-            .login-section {
-                width: 90%;
-                max-width: 300px;
-            }
+  .welcome-text h1, .welcome-text h2 {
+    font-size: 1rem;
+  }
 
-            .welcome-text h1, .welcome-text h2 {
-                font-size: 1rem;
-            }
+  .form-group input {
+    font-size: 1rem;
+  }
 
-            .form-group input {
-                font-size: 1rem;
-            }
+  footer {
+    font-size: 0.75rem;
+  }
+}
 
-            footer {
-                font-size: 0.75rem;
-            }
-        }
+.password-requirements.hidden {
+    display: none;
+}
 
-        .password-requirements.hidden {
-            display: none;
-        }
-
-        .reset-link-sent {
+.reset-link-sent {
             text-align: center;
             color: #28a745;
             margin: 10px 0;
@@ -418,7 +411,8 @@ footer a:hover {
         .password-fields {
             display: none;
         }
-    </style>
+
+     </style>
 </head>
 <body>
     <header class="header">
@@ -439,13 +433,12 @@ footer a:hover {
             <form id="loginForm">
                 <div class="form-group">
                     <label for="loginId"><i class="fas fa-user"></i> Username :</label>
-                    <input type="text" id="loginId" placeholder="Enter Login ID" required maxlength="15" pattern="[A-Za-z]{5,15}">
-                    <div id="loginIdError" class="error-message" style="display: none;"></div>
+                    <input type="text" id="loginId" placeholder="Enter Login ID" required onkeypress="return (event.charCode != 32)">
                 </div>
                 <div class="form-group">
                     <label for="password"><i class="fas fa-lock"></i> Password :</label>
                     <div class="password-wrapper">
-                        <input type="password" id="password" placeholder="Enter Password" required>
+                        <input type="password" id="password" placeholder="Enter Password" required onkeypress="return (event.charCode != 32)">
                         <button type="button" id="togglePassword" class="eye-icon">
                             <i class="fas fa-eye"></i>
                         </button>
@@ -466,17 +459,16 @@ footer a:hover {
             <form id="signupForm" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="signupUsername"><i class="fas fa-user"></i> Username :</label>
-                    <input type="text" id="signupUsername" placeholder="Enter Username" required maxlength="15" pattern="[A-Za-z]{5,15}">
-                    <div id="signupUsernameError" class="error-message" style="display: none;"></div>
+                    <input type="text" id="signupUsername" placeholder="Enter Username" required onkeypress="return (event.charCode != 32)">
                 </div>
                 <div class="form-group">
                     <label for="signupEmail"><i class="fas fa-envelope"></i> Email :</label>
-                    <input type="email" id="signupEmail" placeholder="Enter Email" required>
+                    <input type="email" id="signupEmail" placeholder="Enter Email" required onkeypress="return (event.charCode != 32)">
                 </div>
                 <div class="form-group">
                     <label for="signupPassword"><i class="fas fa-lock"></i> Password :</label>
                     <div class="password-wrapper">
-                        <input type="password" style="width: 100%;" id="signupPassword" placeholder="Enter Password" required>
+                        <input type="password" style="width: 100%;" id="signupPassword" placeholder="Enter Password" required onkeypress="return (event.charCode != 32)">
                         <button type="button" class="eye-icon" id="toggleSignupPassword">
                             <i class="fas fa-eye"></i>
                         </button>
@@ -484,7 +476,7 @@ footer a:hover {
                 </div>
                 <div class="form-group">
                     <label for="confirmPassword"><i class="fas fa-lock"></i> Confirm Password :</label>
-                    <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                    <input type="password" id="confirmPassword" placeholder="Confirm Password" required onkeypress="return (event.charCode != 32)">
                 </div>
                 <div class="form-group">
                     <label for="imageUpload"><i class="fas fa-image"></i> Upload Profile Picture (JPG only):</label>
@@ -505,22 +497,20 @@ footer a:hover {
             <form id="forgotPasswordForm">
                 <div class="form-group">
                     <label for="forgotEmail"><i class="fas fa-envelope"></i> Email :</label>
-                    <input type="email" id="forgotEmail" placeholder="Enter Your Email" required>
+                    <input type="email" id="forgotEmail" placeholder="Enter Your Email" required onkeypress="return (event.charCode != 32)">
                 </div>
                 <div class="form-group">
                     <label for="forgotPassword"><i class="fas fa-lock"></i> New Password :</label>
                     <div class="password-wrapper">
-                        <input type="password" style="width: 100%;" id="forgotPassword" placeholder="Enter New Password" required>
+                        <input type="password" style="width: 100%;" id="forgotPassword" placeholder="Enter New Password" required onkeypress="return (event.charCode != 32)">
                         <button type="button" class="eye-icon" id="toggleForgotPassword">
                             <i class="fas fa-eye"></i>
                         </button>
                     </div>
-                    <div id="forgotPasswordRequirements" class="password-requirements hidden"></div>
                 </div>
                 <div class="form-group">
                     <label for="confirmForgotPassword"><i class="fas fa-lock"></i> Confirm Password :</label>
-                    <input type="password" id="confirmForgotPassword" placeholder="Confirm New Password" required>
-                    <div id="forgotPasswordMatchMessage" class="password-match-message"></div>
+                    <input type="password" id="confirmForgotPassword" placeholder="Confirm New Password" required onkeypress="return (event.charCode != 32)">
                 </div>
                 <center><button type="submit" class="login-btn2"><i class="fas fa-key"></i> Reset Password</button></center>
                 <p style="text-align: center; margin-top: 10px;">Remember your password? <a href="#" id="backToLoginFromForgot" style="text-decoration: none;">Login</a></p>
@@ -569,13 +559,64 @@ footer a:hover {
             });
         }
 
+        // Function to handle space input and show error
+        function preventSpaces(inputElement) {
+            inputElement.addEventListener('input', function() {
+                if (this.value.includes(' ')) {
+                    this.classList.add('input-error');
+                    setTimeout(() => {
+                        this.classList.remove('input-error');
+                        this.value = this.value.replace(/\s/g, '');
+                    }, 500);
+                }
+            });
+        }
+
+        // Email validation function
+        function validateEmail(email) {
+            // Allowed domains
+            const allowedDomains = ['@gmail.com', '@yahoo.com', '@outlook.com'];
+            
+            // Check if email ends with allowed domain exactly
+            const domainValid = allowedDomains.some(domain => email.endsWith(domain));
+            if (!domainValid) {
+                return false;
+            }
+
+            // Split email to validate local part (before @)
+            const localPart = email.split('@')[0];
+            
+            // Check length (5-40 characters)
+            if (localPart.length < 5 || localPart.length > 40) {
+                return false;
+            }
+
+            // Check for allowed characters (alphanumeric, underscore, dot)
+            const validLocalPart = /^[a-zA-Z0-9][a-zA-Z0-9_.]*[a-zA-Z0-9]$/.test(localPart);
+            if (!validLocalPart) {
+                return false;
+            }
+
+            // Check for consecutive special characters
+            const noConsecutiveSpecial = !/[_.]{2,}/.test(localPart);
+            if (!noConsecutiveSpecial) {
+                return false;
+            }
+
+            return true;
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+            // Apply space prevention to all input fields
+            const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"]');
+            inputs.forEach(input => preventSpaces(input));
+
             // Initialize password toggles
             createPasswordToggle('togglePassword', 'password');
             createPasswordToggle('toggleSignupPassword', 'signupPassword');
             createPasswordToggle('toggleForgotPassword', 'forgotPassword');
 
-            // Get all form elements
+            // Get form elements
             const loginForm = document.getElementById("loginForm");
             const signupForm = document.getElementById('signupForm');
             const forgotPasswordForm = document.getElementById('forgotPasswordForm');
@@ -596,10 +637,6 @@ footer a:hover {
             const loginLink = document.getElementById('loginLink');
             const forgotPasswordLink = document.getElementById('forgotPasswordLink');
             const backToLoginFromForgot = document.getElementById('backToLoginFromForgot');
-
-            // Get username input fields
-            const loginIdInput = document.getElementById('loginId');
-            const signupUsernameInput = document.getElementById('signupUsername');
 
             // Password validation requirements
             const requirements = {
@@ -622,6 +659,7 @@ footer a:hover {
                 clearFormFields(loginForm);
                 clearFormFields(signupForm);
                 clearFormFields(forgotPasswordForm);
+                
                 if (formElement === signupFormContent) {
                     const previewImage = document.getElementById('previewImage');
                     if (previewImage) {
@@ -629,16 +667,15 @@ footer a:hover {
                         previewImage.src = '';
                     }
                 }
+                
                 formElement.style.display = 'block';
-                // Clear error messages when switching forms
-                document.getElementById('loginIdError').style.display = 'none';
-                document.getElementById('signupUsernameError').style.display = 'none';
             }
 
-            // Function to create password requirements display
+            // Password validation functions
             function createPasswordRequirements(containerId) {
                 const container = document.createElement('div');
                 container.className = 'password-requirements';
+                
                 Object.entries(requirements).forEach(([key, requirement]) => {
                     const elem = document.createElement('div');
                     elem.className = 'requirement';
@@ -646,65 +683,35 @@ footer a:hover {
                     elem.id = `${containerId}-${key}`;
                     container.appendChild(elem);
                 });
+
                 return container;
             }
 
-            // Function to validate password
             function validatePassword(password, containerId) {
                 let isValid = true;
                 Object.entries(requirements).forEach(([key, requirement]) => {
                     const elem = document.getElementById(`${containerId}-${key}`);
                     const meetsRequirement = requirement.regex.test(password);
+                    
                     elem.className = `requirement ${meetsRequirement ? 'valid' : ''}`;
                     elem.innerHTML = `<i class="fas ${meetsRequirement ? 'fa-check' : 'fa-times'}"></i> ${requirement.message}`;
+                    
                     if (!meetsRequirement) isValid = false;
                 });
                 return isValid;
             }
 
-            // Function to check if passwords match
             function checkPasswordsMatch(password, confirmPassword, messageElement) {
                 if (!confirmPassword) {
                     messageElement.textContent = '';
                     return false;
                 }
+                
                 const match = password === confirmPassword;
                 messageElement.textContent = match ? 'Passwords match!' : 'Passwords do not match';
                 messageElement.className = `password-match-message ${match ? 'match-success' : 'match-error'}`;
                 return match;
             }
-
-            // Function to restrict username input
-            function restrictUsernameInput(inputElement, errorElementId) {
-                inputElement.addEventListener('input', function() {
-                    const errorElement = document.getElementById(errorElementId);
-                    let value = this.value;
-
-                    // Remove non-alphabetical characters
-                    value = value.replace(/[^A-Za-z]/g, '');
-
-                    // Limit to 15 characters
-                    if (value.length > 15) {
-                        value = value.slice(0, 15);
-                    }
-
-                    this.value = value;
-
-                    // Validate username
-                    const usernameRegex = /^[A-Za-z]{5,15}$/;
-                    if (value.length > 0 && !usernameRegex.test(value)) {
-                        errorElement.textContent = 'Username must be 5-15 alphabetical characters only';
-                        errorElement.style.display = 'block';
-                    } else {
-                        errorElement.textContent = '';
-                        errorElement.style.display = 'none';
-                    }
-                });
-            }
-
-            // Apply username restrictions
-            restrictUsernameInput(loginIdInput, 'loginIdError');
-            restrictUsernameInput(signupUsernameInput, 'signupUsernameError');
 
             // Setup signup form validation
             const signupPassword = document.getElementById('signupPassword');
@@ -718,11 +725,13 @@ footer a:hover {
             signupPassword.addEventListener('input', () => {
                 const password = signupPassword.value;
                 const allValid = validatePassword(password, 'signup');
+                
                 if (password.length > 0 && !allValid) {
                     signupRequirements.classList.remove('hidden');
                 } else {
                     signupRequirements.classList.add('hidden');
                 }
+                
                 if (signupConfirmPassword.value) {
                     checkPasswordsMatch(password, signupConfirmPassword.value, signupMatchMessage);
                 }
@@ -732,6 +741,7 @@ footer a:hover {
                 const password = signupPassword.value;
                 const confirmPassword = signupConfirmPassword.value;
                 checkPasswordsMatch(password, confirmPassword, signupMatchMessage);
+                
                 const allValid = validatePassword(password, 'signup');
                 if (password.length > 0 && !allValid) {
                     signupRequirements.classList.remove('hidden');
@@ -745,17 +755,20 @@ footer a:hover {
             const forgotConfirmPassword = document.getElementById('confirmForgotPassword');
             const forgotRequirements = createPasswordRequirements('forgot');
             forgotRequirements.classList.add('hidden');
-            document.getElementById('forgotPasswordRequirements').appendChild(forgotRequirements);
-            const forgotMatchMessage = document.getElementById('forgotPasswordMatchMessage');
+            forgotPassword.parentNode.insertBefore(forgotRequirements, forgotPassword.nextSibling);
+            const forgotMatchMessage = document.createElement('div');
+            forgotConfirmPassword.parentNode.appendChild(forgotMatchMessage);
 
             forgotPassword.addEventListener('input', () => {
                 const password = forgotPassword.value;
                 const allValid = validatePassword(password, 'forgot');
+                
                 if (password.length > 0 && !allValid) {
                     forgotRequirements.classList.remove('hidden');
                 } else {
                     forgotRequirements.classList.add('hidden');
                 }
+                
                 if (forgotConfirmPassword.value) {
                     checkPasswordsMatch(password, forgotConfirmPassword.value, forgotMatchMessage);
                 }
@@ -765,6 +778,7 @@ footer a:hover {
                 const password = forgotPassword.value;
                 const confirmPassword = forgotConfirmPassword.value;
                 checkPasswordsMatch(password, confirmPassword, forgotMatchMessage);
+                
                 const allValid = validatePassword(password, 'forgot');
                 if (password.length > 0 && !allValid) {
                     forgotRequirements.classList.remove('hidden');
@@ -780,13 +794,17 @@ footer a:hover {
             });
 
             loginLink.addEventListener('click', (e) => {
-        e.preventDefault();
+                e.preventDefault();
                 showForm(loginFormContent);
             });
 
             forgotPasswordLink.addEventListener('click', (e) => {
                 e.preventDefault();
                 showForm(forgotPasswordFormContent);
+                const existingMessage = forgotPasswordFormContent.querySelector('.reset-link-sent');
+                if (existingMessage) {
+                    existingMessage.remove();
+                }
             });
 
             backToLoginFromForgot.addEventListener('click', (e) => {
@@ -794,7 +812,7 @@ footer a:hover {
                 showForm(loginFormContent);
             });
 
-            // Function for image preview
+            // Image preview
             window.handleImageUpload = function(event) {
                 const file = event.target.files[0];
                 if (file) {
@@ -816,29 +834,33 @@ footer a:hover {
             // Form submissions
             signupForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
-                const username = document.getElementById('signupUsername').value;
-                const email = document.getElementById('signupEmail').value;
-                const password = signupPassword.value;
-                const confirmPassword = signupConfirmPassword.value;
+                let username = document.getElementById('signupUsername').value.trim();
+                let email = document.getElementById('signupEmail').value.trim();
+                const password = document.getElementById('signupPassword').value.trim();
+                const confirmPassword = document.getElementById('confirmPassword').value.trim();
                 const imageUpload = document.getElementById('imageUpload');
 
-                // Validate all fields
-                if (!username || !email || !password || !confirmPassword) {
-                    alert('Please fill in all fields');
+                // Update input fields with trimmed values
+                document.getElementById('signupUsername').value = username;
+                document.getElementById('signupEmail').value = email;
+                document.getElementById('signupPassword').value = password;
+                document.getElementById('confirmPassword').value = confirmPassword;
+
+                // Check for spaces
+                if (username.includes(' ') || email.includes(' ') || password.includes(' ') || confirmPassword.includes(' ')) {
+                    alert('Spaces are not allowed in any input field');
                     return;
                 }
 
-                const usernameRegex = /^[A-Za-z]{5,15}$/;
+                // Client-side validation
+                const usernameRegex = /^[A-Za-z]{5,}$/;
                 if (!usernameRegex.test(username)) {
-                    alert('Username must be 5-15 alphabetical characters only');
-                    document.getElementById('signupUsernameError').textContent = 'Username must be 5-15 alphabetical characters only';
-                    document.getElementById('signupUsernameError').style.display = 'block';
+                    alert('Username must be at least 5 characters long and contain only letters');
                     return;
                 }
 
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(email)) {
-                    alert('Please enter a valid email address');
+                if (!validateEmail(email)) {
+                    alert('Email must:\n- Use @gmail.com, @yahoo.com, or @outlook.com\n- Have 5-40 alphanumeric characters before @\n- Only use underscore or dot as special characters\n- Not have consecutive special characters');
                     return;
                 }
 
@@ -859,6 +881,7 @@ footer a:hover {
                     return;
                 }
 
+                // Send to backend
                 const formData = new FormData();
                 formData.append('username', username);
                 formData.append('email', email);
@@ -870,32 +893,34 @@ footer a:hover {
                         method: 'POST',
                         body: formData
                     });
-                    const result = await response.json();
+                    const data = await response.json();
+
                     if (response.ok) {
                         alert('Registration successful!');
                         showForm(loginFormContent);
                         signupForm.reset();
                         document.getElementById('previewImage').style.display = 'none';
-                        document.getElementById('signupUsernameError').style.display = 'none';
                     } else {
-                        alert(result.message || 'Registration failed');
+                        alert(data.error || 'Registration failed');
                     }
                 } catch (error) {
-                    console.error('Error:', error);
-                    alert('An error occurred during registration');
+                    console.error(error);
+                    alert('Server error');
                 }
             });
 
             loginForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
-                const username = document.getElementById('loginId').value;
-                const password = document.getElementById('password').value;
+                let username = document.getElementById('loginId').value.trim();
+                let password = document.getElementById('password').value.trim();
 
-                const usernameRegex = /^[A-Za-z]{5,15}$/;
-                if (!usernameRegex.test(username)) {
-                    alert('Username must be 5-15 alphabetical characters only');
-                    document.getElementById('loginIdError').textContent = 'Username must be 5-15 alphabetical characters only';
-                    document.getElementById('loginIdError').style.display = 'block';
+                // Update input fields with trimmed values
+                document.getElementById('loginId').value = username;
+                document.getElementById('password').value = password;
+
+                // Check for spaces
+                if (username.includes(' ') || password.includes(' ')) {
+                    alert('Spaces are not allowed in username or password');
                     return;
                 }
 
@@ -905,68 +930,89 @@ footer a:hover {
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ username, password })
                     });
-                    const result = await response.json();
+                    const data = await response.json();
+
                     if (response.ok) {
-                        localStorage.setItem('token', result.token);
+                        localStorage.setItem('token', data.token);
+                        localStorage.setItem('currentUser', data.user.username);
+                        localStorage.setItem('currentUserImage', data.user.profileImage);
                         biometricModal.style.display = 'flex';
                     } else {
-                        alert(result.message || 'Invalid username or password');
+                        alert(data.error || 'Invalid username or password');
                     }
                 } catch (error) {
-                    console.error('Error:', error);
-                    alert('An error occurred during login');
+                    console.error(error);
+                    alert('Server error');
                 }
             });
 
             forgotPasswordForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
-                const email = document.getElementById('forgotEmail').value;
-                const newPassword = document.getElementById('forgotPassword').value;
-                const confirmPassword = document.getElementById('confirmForgotPassword').value;
+                let email = document.getElementById('forgotEmail').value.trim();
+                const password = document.getElementById('forgotPassword').value.trim();
+                const confirmPassword = document.getElementById('confirmForgotPassword').value.trim();
 
-                // Validate email
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(email)) {
-                    alert('Please enter a valid email address');
+                // Update input fields with trimmed values
+                document.getElementById('forgotEmail').value = email;
+                document.getElementById('forgotPassword').value = password;
+                document.getElementById('confirmForgotPassword').value = confirmPassword;
+
+                // Check for spaces
+                if (email.includes(' ') || password.includes(' ') || confirmPassword.includes(' ')) {
+                    alert('Spaces are not allowed in any input field');
                     return;
                 }
 
-                // Validate password
-                if (!validatePassword(newPassword, 'forgot')) {
+                if (!validateEmail(email)) {
+                    alert('Email must:\n- Use @gmail.com, @yahoo.com, or @outlook.com\n- Have 5-40 alphanumeric characters before @\n- Only use underscore or dot as special characters\n- Not have consecutive special characters');
+                    return;
+                }
+
+                if (!validatePassword(password, 'forgot')) {
                     forgotRequirements.classList.remove('hidden');
                     alert('Please ensure all password requirements are met');
                     return;
                 }
 
-                // Check if passwords match
-                if (!checkPasswordsMatch(newPassword, confirmPassword, forgotMatchMessage)) {
+                if (!checkPasswordsMatch(password, confirmPassword, forgotMatchMessage)) {
                     alert('Passwords do not match');
                     return;
                 }
 
                 try {
-                    const response = await fetch('http://98.80.67.100:3017/api/reset-password', {
+                    const response = await fetch('http://98.80.67.100:3017/api/forgot-password', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email, newPassword })
+                        body: JSON.stringify({ email, password })
                     });
-                    const result = await response.json();
+                    const data = await response.json();
+
                     if (response.ok) {
-                        alert('Password reset successful!');
-                        showForm(loginFormContent);
-                        forgotPasswordForm.reset();
-                        forgotRequirements.classList.add('hidden');
-                        forgotMatchMessage.textContent = '';
+                        const successMessage = document.createElement('div');
+                        successMessage.className = 'reset-link-sent';
+                        successMessage.innerHTML = `
+                            <i class="fas fa-check-circle"></i>
+                            Password has been successfully reset.
+                        `;
+                        const existingMessage = forgotPasswordFormContent.querySelector('.reset-link-sent');
+                        if (existingMessage) {
+                            existingMessage.remove();
+                        }
+                        forgotPasswordFormContent.appendChild(successMessage);
+                        setTimeout(() => {
+                            showForm(loginFormContent);
+                            forgotPasswordForm.reset();
+                        }, 2000);
                     } else {
-                        alert(result.message || 'Email not found');
+                        alert(data.error || 'Failed to reset password');
                     }
                 } catch (error) {
-                    console.error('Error:', error);
-                    alert('An error occurred while resetting password');
+                    console.error(error);
+                    alert('Server error');
                 }
             });
 
-            // Biometric modal handlers
+            // Biometric authentication (simulated)
             cancelBiometric.addEventListener('click', function() {
                 biometricModal.style.display = 'none';
                 biometricMessage.textContent = 'Please verify your fingerprint to continue';
@@ -977,15 +1023,18 @@ footer a:hover {
             fingerprintIcon.addEventListener('click', function() {
                 this.classList.add('scanning');
                 biometricMessage.textContent = 'Scanning fingerprint...';
+
                 setTimeout(() => {
                     biometricMessage.textContent = 'Processing...';
                 }, 1000);
+
                 setTimeout(() => {
                     this.classList.remove('scanning');
                     biometricMessage.textContent = 'Authentication successful!';
                     this.style.color = '#00ff00';
+
                     setTimeout(() => {
-                        window.location.href = 'http://98.80.67.100:9025/dashboard/index.html';
+                        window.location.href = 'http://98.80.67.100:9026/index.html';
                     }, 1000);
                 }, 2000);
             });

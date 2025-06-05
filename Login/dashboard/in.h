@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.6.6/css/flag-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
     <style>
-        /* [Previous CSS remains unchanged] */
         @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
 
         * {
@@ -45,7 +44,7 @@
         html {
             overflow-x: hidden;
             scrollbar-width: thin;
-            scrollbar-color: transparent transparent;
+            /* scrollbar-color: transparent transparent; */
         }
 
         body.dark {
@@ -576,6 +575,7 @@
             }
         }
 
+        /* Notification Modal Styles */
         .notification-modal {
             display: none;
             position: fixed;
@@ -663,6 +663,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
+        /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -684,6 +685,7 @@
             100% { transform: translateY(0); opacity: 1; }
         }
 
+        /* Individual element animations */
         .animate-slide {
             opacity: 0;
             animation: slideIn 0.5s ease-out forwards;
@@ -693,11 +695,6 @@
         .delay-200 { animation-delay: 0.2s; }
         .delay-300 { animation-delay: 0.3s; }
         .delay-400 { animation-delay: 0.4s; }
-
-        @keyframes fadeOut {
-            from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-            to { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-        }
     </style>
 </head>
 <body>
@@ -983,13 +980,14 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem('token'); // Check for token
             if (!token) {
-                window.location.href = 'http://98.80.67.100:9026/Login/index.html';
+                window.location.href = 'index.html'; // Redirect if no token
                 return;
             }
 
             try {
+                // Fetch user data from backend
                 const response = await fetch('http://98.80.67.100:3017/api/user', {
                     method: 'GET',
                     headers: {
@@ -997,35 +995,51 @@
                         'Content-Type': 'application/json'
                     }
                 });
-                const result = await response.json();
-                if (response.ok) {
-                    const usernameElements = document.querySelectorAll('#username');
-                    usernameElements.forEach(element => {
-                        if (element) {
-                            element.textContent = result.username || 'User';
-                        }
-                    });
-                    const profileImages = document.querySelectorAll('.profile-img');
-                    profileImages.forEach(img => {
-                        if (img && result.profileImage) {
-                            img.src = result.profileImage;
-                            img.style.width = '70px';
-                            img.style.height = '70px';
-                            img.style.borderRadius = '50%';
-                            img.style.objectFit = 'cover';
-                        }
-                    });
-                } else {
-                    alert(result.message || 'Session expired. Please log in again.');
-                    localStorage.removeItem('token');
-                    window.location.href = 'http://98.80.67.100:9026/Login/index.html';
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user data');
                 }
+
+                const userData = await response.json();
+
+                // Update username
+                const usernameElements = document.querySelectorAll('#username, #firstusername');
+                usernameElements.forEach(element => {
+                    if (element) {
+                        element.textContent = userData.username || 'User';
+                    }
+                });
+
+                // Update profile image
+                const profileImages = document.querySelectorAll('.profile-img');
+                profileImages.forEach(img => {
+                    if (img && userData.profileImage) {
+                        img.src = `http://98.80.67.100:3017${userData.profileImage}`;
+                        img.style.width = '70px';
+                        img.style.height = '70px';
+                        img.style.borderRadius = '50%';
+                        img.style.objectFit = 'cover';
+                    } else if (img) {
+                        img.src = '../Assests/default-profile.jpg'; // Fallback image
+                    }
+                });
+
             } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred while fetching user data');
-                localStorage.removeItem('token');
-                window.location.href = 'http://98.80.67.100:9026/Login/index.html';
+                console.error('Error fetching user data:', error);
+                localStorage.clear(); // Clear localStorage on error
+                window.location.href = 'index.html'; // Redirect to index
             }
+
+            // Dynamically add fadeOut keyframes
+            const styleElement = document.createElement('style');
+            const fadeOutKeyframes = `
+                @keyframes fadeOut {
+                    from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                    to { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+                }
+            `;
+            styleElement.textContent = fadeOutKeyframes;
+            document.head.appendChild(styleElement);
         });
 
         function logout() {
@@ -1034,74 +1048,155 @@
             const animatedElements = document.querySelectorAll('.animate-slide');
             animatedElements.forEach(el => {
                 el.style.animation = 'none';
-                el.offsetHeight;
+                el.offsetHeight; // Trigger reflow
                 el.style.animation = null;
             });
         }
 
         function closeLogoutModal() {
-        const modal = document.getElementById('logoutModal');
-        modal.style.display = 'fadeOut';
-        modal.style.display = 'none';
-    }
-
-    function confirmLogout() {
-        localStorage.removeItem('token');
-        window.location.href = 'http://98.80.67.100:9026/Login/index.html';
-    }
-
-    function toggleSubmenu(submenuId) {
-        const submenu = document.getElementById(submenuId);
-        const toggleBtn = submenu.previousElementSibling.querySelector('.submenu-toggle');
-        if (submenu.style.display === 'block') {
-            submenu.style.display = 'none';
-            toggleBtn.classList.remove('rotate');
-        } else {
-            document.querySelectorAll('.submenu').forEach(menu => menu.style.display = 'none');
-            document.querySelectorAll('.submenu-toggle').forEach(btn => btn.classList.remove('rotate'));
-            submenu.style.display = 'block';
-            toggleBtn.classList.add('rotate');
+            const modal = document.getElementById('logoutModal');
+            modal.style.display = 'none';
         }
-    }
 
-    function toggleCountryDropdown() {
-        const dropdown = document.getElementById('countryDropdown');
-        dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
-    }
+        async function confirmLogout() {
+            const container = document.querySelector('.notification-container');
+            container.style.animation = 'fadeOut 0.3s ease-out forwards';
+            
+            // Notify backend to invalidate token (optional, if using token blacklist)
+            try {
+                const token = localStorage.getItem('token');
+                await fetch('http://98.80.67.100:3017/api/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+            } catch (error) {
+                console.error('Error notifying backend of logout:', error);
+            }
 
-    function toggleFullScreen() {
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen();
-        } else if (document.exitFullscreen) {
-            document.exitFullscreen();
+            setTimeout(() => {
+                // Clear all localStorage to ensure complete logout
+                localStorage.clear();
+                // Force navigation to index.html
+                window.location.replace('http://98.80.67.100:9026/index.html'); 
+            }, 300);
         }
-    }
 
-    // Toggle sidebar
-    document.querySelector('.bi-chevron-compact-right').addEventListener('click', () => {
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('logoutModal');
+            if (event.target === modal) {
+                closeLogoutModal();
+            }
+        });
+
+        document.querySelector('.profile-section').addEventListener('click', function() {
+            const menu = document.querySelector('.profile-menu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+            this.classList.toggle('active');
+        });
+
+        function toggleSubmenu(submenuId) {
+            const submenu = document.getElementById(submenuId);
+            const toggleIcon = submenu.previousElementSibling.querySelector('.submenu-toggle');
+            submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+            toggleIcon.classList.toggle('rotate');
+        }
+
+        document.querySelectorAll('.submenu li > a').forEach(submenuItem => {
+            submenuItem.addEventListener('click', function (e) {
+                e.stopPropagation();
+                const parentLi = submenuItem.parentElement;
+                const nestedSubmenu = parentLi.querySelector('.submenu');
+                if (nestedSubmenu) {
+                    nestedSubmenu.style.display = nestedSubmenu.style.display === 'block' ? 'none' : 'block';
+                    const toggleIcon = parentLi.querySelector('.submenu-toggle');
+                    if (toggleIcon) {
+                        toggleIcon.classList.toggle('rotate');
+                    }
+                }
+            });
+        });
+
+        function toggleCountryDropdown() {
+            const dropdown = document.getElementById('countryDropdown');
+            dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+        }
+
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('countryDropdown');
+            const languageSelector = document.querySelector('.language-selector');
+            const globeIcon = document.querySelector('img[alt="geography--v2"]');
+            if (!dropdown.contains(event.target) && !languageSelector.contains(event.target) && !globeIcon.contains(event.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
+        allSideMenu.forEach(item => {
+            const li = item.parentElement;
+            item.addEventListener('click', function () {
+                allSideMenu.forEach(i => {
+                    i.parentElement.classList.remove('active');
+                });
+                li.classList.add('active');
+            });
+        });
+
+        const menuBar = document.querySelector('#content nav .bi.bi-chevron-compact-right');
         const sidebar = document.getElementById('sidebar');
-        sidebar.classList.toggle('hide');
-    });
+        menuBar.addEventListener('click', function () {
+            sidebar.classList.toggle('hide');
+        });
 
-    // Handle profile menu toggle
-    document.querySelector('.profile-section').addEventListener('click', function() {
-        this.classList.toggle('active');
-    });
+        if (window.innerWidth < 768) {
+            sidebar.classList.add('hide');
+        }
 
-    // Close profile menu when clicking outside
-    document.addEventListener('click', function(event) {
-        const profileSection = document.querySelector('.profile-section');
-        const profileMenu = document.querySelector('.profile-menu');
-        if (!profileSection.contains(event.target)) {
-            profileSection.classList.remove('active');
+        window.addEventListener('resize', function () {
+            if (this.innerWidth > 576) {
+                const searchButtonIcon = document.querySelector('#search-button');
+                const searchForm = document.querySelector('#search-wrapper');
+                if (searchButtonIcon && searchForm) {
+                    searchButtonIcon.classList.replace('bx-x', 'bx-search');
+                    searchForm.classList.remove('show');
+                }
+            }
+        });
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.mozRequestFullScreen) {
+                    document.documentElement.mozRequestFullScreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) {
+                    document.documentElement.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
         }
-    // Close country dropdown when clicking outside
-        const countryDropdown = document.getElementById('countryDropdown');
-        const languageSelector = document.querySelector('.language-selector');
-        if (!languageSelector.contains(event.target) && !countryDropdown.contains(event.target)) {
-            countryDropdown.style.display = 'none';
-        }
-    });
-</script>
+
+        const search = document.getElementById('search');
+        search.addEventListener('focus', (event) => {
+            document.getElementById('search-wrapper').style.border = "1px solid #1dbf73";
+        });
+
+        search.addEventListener('focusout', (event) => {
+            document.getElementById('search-wrapper').style.border = "1px solid rgba(0, 0, 0, 0.276)";
+        });
+    </script>
 </body>
 </html>
