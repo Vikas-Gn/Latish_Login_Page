@@ -40,7 +40,7 @@ services:
 
   dashboard:
     build:
-      context: ./Login/dashboard
+      context: ./dashboard
     container_name: dashboard_service3
     ports:
       - "7301:80"

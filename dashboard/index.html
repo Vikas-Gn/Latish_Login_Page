@@ -1015,11 +1015,7 @@
                             img.style.objectFit = 'cover';
                         }
                     });
-                } else {
-                    alert(result.message || 'Session expired. Please log in again.');
-                    localStorage.removeItem('token');
-                    window.location.href = 'http://3.88.203.125:7300/Login/index.html';
-                }
+                } 
             } catch (error) {
                 console.error('Error:', error);
                 alert('An error occurred while fetching user data');
