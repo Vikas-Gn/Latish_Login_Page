@@ -165,7 +165,7 @@ app.get('/api/user', authenticateToken, async (req, res) => {
         const user = result.rows[0];
         res.json({
             username: user.username,
-            profileImage: `http://98.80.67.100:3017${user.profile_image}`,
+            profileImage: `http://3.88.203.125:3300${user.profile_image}`,
         });
     } catch (error) {
         console.error('Error:', error);
@@ -176,6 +176,6 @@ app.get('/api/user', authenticateToken, async (req, res) => {
 // Serve uploaded images
 app.use('/uploads', express.static(path.join(__dirname, 'Uploads')));
 
-app.listen(3017, () => {
-    console.log('Server running on http://98.80.67.100:3017');
+app.listen(3300, () => {
+    console.log('Server running on http://3.88.203.125:3300');
 });
