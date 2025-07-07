@@ -985,12 +985,12 @@
         document.addEventListener('DOMContentLoaded', async function() {
             const token = localStorage.getItem('token');
             if (!token) {
-                window.location.href = 'http://3.88.203.125:7300/Login/index.html';
+                window.location.href = 'http://13.201.122.255:9022/Login/index.html';
                 return;
             }
 
             try {
-                const response = await fetch('http://3.88.203.125:3300/api/user', {
+                const response = await fetch('http://13.201.122.255:3076/api/user', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -1020,7 +1020,7 @@
                 console.error('Error:', error);
                 alert('An error occurred while fetching user data');
                 localStorage.removeItem('token');
-                window.location.href = 'http://3.88.203.125:7300/Login/index.html';
+                window.location.href = 'http://13.201.122.255:9022/Login/index.html';
             }
         });
 
@@ -1043,7 +1043,7 @@
 
     function confirmLogout() {
         localStorage.removeItem('token');
-        window.location.href = 'http://3.88.203.125:7300/Login/index.html';
+        window.location.href = 'http://13.201.122.255:9022/Login/index.html';
     }
 
     function toggleSubmenu(submenuId) {

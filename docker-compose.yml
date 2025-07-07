@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: admin123
       POSTGRES_DB: hrms_db
     ports:
-      - "5700:5432"
+      - "5043:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -21,7 +21,7 @@ services:
       context: ./Backend
     container_name: backend_service2
     ports:
-      - "3300:3300"
+      - "3076:3076"
     depends_on:
       - postgres
     environment:
@@ -34,7 +34,7 @@ services:
       context: ./Login
     container_name: login_service4
     ports:
-      - "7300:80"
+      - "9022:80"
     networks:
       - app-network
 
@@ -43,7 +43,7 @@ services:
       context: ./dashboard
     container_name: dashboard_service3
     ports:
-      - "7301:80"
+      - "9023:80"
     networks:
       - app-network
 

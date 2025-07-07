@@ -1073,7 +1073,7 @@
                 formData.append('profileImage', imageFile);
 
                 try {
-                    const response = await fetch('http://3.88.203.125:3300/api/register', {
+                    const response = await fetch('http://13.201.122.255:3076/api/register', {
                         method: 'POST',
                         body: formData
                     });
@@ -1108,7 +1108,7 @@
                 }
 
                 try {
-                    const response = await fetch('http://3.88.203.125:3300/api/login', {
+                    const response = await fetch('http://13.201.122.255:3076/api/login', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ username, password })
@@ -1153,7 +1153,7 @@
                 }
 
                 try {
-                    const response = await fetch('http://3.88.203.125:3300/api/reset-password', {
+                    const response = await fetch('http://13.201.122.255:3076/api/reset-password', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email, newPassword })
